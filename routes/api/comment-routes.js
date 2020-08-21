@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const { Post, User, Comment } = require('../../models');
+const { Comment, Post, User } = require('../../models');
 
-// get all posts
+// get all comments
 router.get('/', (req, res) => {
-  Post
+  Comment
     .findAll({
-      attributes: ['id', 'title', 'content', 'created_at'],
+      attributes: ['id', 'comment_text', 'created_at'],
       order: [['created_at', 'DESC']],
       include: [
         {
@@ -13,82 +13,80 @@ router.get('/', (req, res) => {
           attributes: ['username']
         },
         {
-          model: Comment,
-          attributes: ['comment_text', 'created_at'],
+          model: Post,
+          attributes: ['title', 'created_at'],
           include: {
             model: User,
             attributes: ['username']
-          },
-          order: [['created_at', 'DESC']]
+          }
         }
       ]
     })
-    .then(dbPostData => res.json(dbPostData))
+    .then(dbCommentData => res.json(dbCommentData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
 });
 
-// get a single post
+// get a single comment
 router.get('/:id', (req, res) => {
-  Post
+  Comment
     .findOne({
       where: {
         id: req.params.id
       },
-      attributes: ['id', 'title', 'content', 'created_at'],
+      attributes: ['id', 'comment_text', 'created_at'],
+      order: [['created_at', 'DESC']],
       include: [
         {
           model: User,
           attributes: ['username']
         },
         {
-          model: Comment,
-          attributes: ['comment_text', 'created_at'],
+          model: Post,
+          attributes: ['title', 'created_at'],
           include: {
             model: User,
             attributes: ['username']
-          },
-          order: [['created_at', 'DESC']]
+          }
         }
       ]
     })
-    .then(dbPostData => {
-      if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id!' });
+    .then(dbCommentData => {
+      if (!dbCommentData) {
+        res.status(404).json({ message: 'No comment found with this id!' });
         return;
       }
-      res.json(dbPostData);
+      res.json(dbCommentData);
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });    
-});
-
-// create a post
-router.post('/', (req, res) => {
-  Post
-    .create({
-      title: req.body.title,
-      content: req.body.content,
-      user_id: req.body.user_id
-    })
-    .then(dbPostData => res.json(dbPostData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
     });
 });
 
-// update a post
+// create a comment
+router.post('/', (req, res) => {
+  Comment
+    .create({
+      comment_text: req.body.comment_text,
+      user_id: req.body.user_id,
+      post_id: req.body.post_id
+    })
+    .then(dbCommentData => res.json(dbCommentData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+// update a comment
 router.put('/:id', (req, res) => {
-  Post
+  Comment
     .update(
       {
-        title: req.body.title,
-        content: req.body.content
+        comment_text: req.body.comment_text
       },
       {
         where: {
@@ -96,12 +94,12 @@ router.put('/:id', (req, res) => {
         }
       }
     )
-    .then(dbPostData => {
-      if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id' });
+    .then(dbCommentData => {
+      if (!dbCommentData) {
+        res.status(404).json({ message: 'No comment found with this id!' });
         return;
       }
-      res.json(dbPostData);
+      res.json(dbCommentData);
     })
     .catch(err => {
       console.log(err);
@@ -109,20 +107,20 @@ router.put('/:id', (req, res) => {
     });
 });
 
-// delete a post
+// delete a comment
 router.delete('/:id', (req, res) => {
-  Post
+  Comment
     .destroy({
       where: {
         id: req.params.id
       }
     })
-    .then(dbPostData => {
-      if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id' });
+    .then(dbCommentData => {
+      if (!dbCommentData) {
+        res.status(404).json({ message: 'No comment found with this id!' });
         return;
       }
-      res.json(dbPostData);
+      res.json(dbCommentData);
     })
     .catch(err => {
       console.log(err);
