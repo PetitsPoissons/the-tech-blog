@@ -30,13 +30,15 @@ body, html {
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  background: no-repeat center center;
-  background-image: url("../img/Blogging_002sm.jpg");
+  /*background: no-repeat top center;*/
+  background-image: url("../img/Blogging_003.jpg");
   background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
 }
 
 #mainNav .navbar-brand {
-  font-size: 35px;
+  font-size: 45px;
   font-weight: 600;
   color: #343a40;
 }
@@ -55,12 +57,13 @@ body, html {
 }
 
 #whatSnew {
-  padding: 200px 200px 300px 200px;
-  margin-bottom: 50px;
-  background: no-repeat center center;
-  background-attachment: scroll;
+  background-image: url("../img/Blogging_003.jpg");
   background-size: cover;
-  background-image: url("../img/Blogging_001sm.jpg");
+  background-attachment: fixed;
+  color: transparent;
+  height: 600px;
+  max-width: 100%;
+  /*background: no-repeat center center;*/
 }
 
 p {
@@ -105,7 +108,6 @@ footer {
   border-top: 1px solid #ccc;
   display: flex;
   justify-content: center;
-  margin-top: 2%;
   padding: 1%;
   font-size: 110%;
 }
