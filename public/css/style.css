@@ -1,8 +1,21 @@
+* {
+  box-sizing: border-box;
+}
 
-body {
+body, html {
+  height: 100%;
+  padding: 0;
+  margin: 0;
   font-size: 20px;
-  color: #212529;
-  /*font-family: 'Lora', 'Times New Roman', serif;*/
+}
+
+.wrapper {
+  width: 100%;
+  min-height: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .tech {
@@ -10,13 +23,16 @@ body {
 }
 
 #mainNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   text-shadow: 2px 2px 3px white;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
+  background: no-repeat center center;
   background-image: url("../img/Blogging_002sm.jpg");
   background-size: cover;
-  /*z-index: 9999;*/
 }
 
 #mainNav .navbar-brand {
@@ -26,26 +42,70 @@ body {
 }
 
 #mainNav .navbar-toggler {
-  /*font-size: 20px;*/
   font-weight: 800;
   padding: 13px;
   text-transform: uppercase;
   color: #343a40;
 }
 
-#mainNav .navbar-nav > li.nav-item > a {
-  /*font-size: 20px;*/
+#mainNav .navbar-nav li.nav-item a {
   font-weight: 800;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
 
-header {
+#whatSnew {
   padding: 200px 200px 300px 200px;
   margin-bottom: 50px;
   background: no-repeat center center;
   background-attachment: scroll;
-  /*position: relative;*/
   background-size: cover;
   background-image: url("../img/Blogging_001sm.jpg");
+}
+
+p {
+  line-height: 1.5;
+  margin: 30px 0;
+}
+
+a {
+  color: #212529;
+  transition: all 0.2s;
+}
+
+a:focus, a:hover {
+  text-decoration: none;
+  color: #81bf3a;
+}
+
+.post-preview {
+  margin: 0;
+  padding: 0;
+}
+
+.post-title {
+  font-size: 30px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.post-text {
+  font-weight: 300;
+  margin: 0 0 10px;
+}
+
+.post-meta {
+  font-size: 18px;
+  font-style: italic;
+  margin-top: 0;
+  color: #868e96;
+}
+
+footer {
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  padding: 1%;
+  font-size: 110%;
 }

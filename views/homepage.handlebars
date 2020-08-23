@@ -1,19 +1,9 @@
-<ol class="col-12 post-list">
-  {{#each posts as |post|}}
-  <li class="row">
-    <div class="card border-primary mb-3">
-      <div class="card-header flex-row justify-space-between">
-        <div class="col-12 col-sm-7 post-title">
-          <h4 class="card-title"><a href="/post/{{ post.id }}">{{ post.title }}</a></h4>
-        </div>
-        <div class="col-12 col-sm-5 meta">
-          Posted by {{ post.user.username }} on {{ post.created_at }}
-        </div>
-      </div>
-      <div class="card-body">
-        <p class="card-text">{{ post.content }}</p>
-      </div> 
-    </div>
-  </li>
-  {{/each}}
-</ol>
+{{#each posts as |post|}}
+<div class="post-preview">
+  <h3 class="post-title">
+    <a href="/post/{{ post.id }}">{{ post.title }}</a>
+  </h3>
+  <p class="post-text">{{ post.content }}</p>
+  <p class="post-meta">Posted by {{ post.user.username }} on {{ post.created_at }}</p>
+</div>
+{{/each}}
