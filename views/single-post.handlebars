@@ -1,8 +1,7 @@
-<ol class="col-12 post-list">
-  {{#each posts as |post|}}
-  <li class="row">
-    <div class="card border-primary mb-3">
-      <div class="card-header flex-row justify-space-between">
+<article class="row post">
+  <div class="card border-primary mb-3">
+    <div class="card-header">
+      <div class="flex-row justify-space-between">
         <div class="col-12 col-sm-7 post-title">
           <h4 class="card-title"><a href="/post/{{ post.id }}">{{ post.title }}</a></h4>
         </div>
@@ -10,10 +9,9 @@
           Posted by {{ post.user.username }} on {{ post.created_at }}
         </div>
       </div>
-      <div class="card-body">
-        <p class="card-text">{{ post.content }}</p>
-      </div> 
     </div>
-  </li>
-  {{/each}}
-</ol>
+    <div class="card-body">
+      <p class="card-text">{{ post.content }}</p>
+    </div> 
+  </div>
+</article>

@@ -1,4 +1,45 @@
-h1 {
-  font-family: 'Monoton', cursive;
-  font-size: 50px;
+
+body {
+  font-size: 20px;
+  color: #212529;
+  /*font-family: 'Lora', 'Times New Roman', serif;*/
+}
+
+#app-title {
+  font-size: 35px;
+}
+
+#mainNav {
+  position: absolute;
+  /*border-bottom: 1px solid #e9ecef;*/
+  /*background-color: white;*/
+}
+
+#mainNav .navbar-brand {
+  font-weight: 600;
+  color: #343a40;
+}
+
+#mainNav .navbar-toggler {
+  /*font-size: 20px;*/
+  font-weight: 800;
+  padding: 13px;
+  text-transform: uppercase;
+  color: #343a40;
+}
+
+#mainNav .navbar-nav > li.nav-item > a {
+  /*font-size: 20px;*/
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+header.masthead {
+  margin-bottom: 50px;
+  background: no-repeat center center;
+  background-color: #868e96;
+  background-attachment: scroll;
+  position: relative;
+  background-size: cover;
 }
