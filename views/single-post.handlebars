@@ -8,16 +8,7 @@
     <h5>Comments</h5>
   </div>
   <div class="col-10">
-    {{#each post.comments}}
-    <section class="row d-block mb-3 pl-3 comment">
-      <div class="comment-text">
-        {{ comment_text }}
-      </div>
-      <div class="meta">
-        by {{ user.username }} on {{ format_date created_at }}
-      </div>
-    </section>
-    {{/each}}
+    {{> comments post.comments}}
     {{#if loggedIn}}
     <form class="comment-form">
       <div>

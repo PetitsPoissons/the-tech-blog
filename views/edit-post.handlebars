@@ -1,0 +1,26 @@
+<section class="row d-block w-100 my-3">
+  <a href="/dashboard" class="back">&larr; Back to dashboard</a>
+  <h3>Edit Post</h3>
+  <form class="edit-post-form w-100">
+    <div>
+      <input type="text" class="new-post-title my-3 w-100" name="edit-post-title" value="{{ post.title }}" />
+    </div>
+    <div>
+      <textarea class="w-100 mt-3" name="edit-post-content" value="{{ post.content }}"></textarea>
+    </div>
+    <button type="submit" class="w-100 my-3 btn btn-primary">Save post</button>
+    <button type="button" class="delete-post-btn">Delete post</button>
+  </form>
+  <form class="row d-block w-100 my-3 comment-form">
+    <div>
+      <textarea class="w-100 mt-3 comment-area" name="comment-body" placeholder="your comment"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary w-100 my-2">Add Comment</button>
+  </form>
+  {{#if post.comments.length}}
+    {{> comments post.comments}}
+  {{/if}}
+</section>
+<script src="/js/edit-post.js"></script>
+<script src="/js/delete-post.js"></script>
+<script src="/js/comment.js"></script>
