@@ -4,7 +4,7 @@
       <a href="/post/{{ post.id }}">{{ post.title }}</a>
     </h3>
     <p class="post-text">{{ post.content }}</p>
-    <p class="meta">Posted by {{ post.user.username }} on {{ post.created_at }}</p>
+    <p class="meta">Posted by {{ post.user.username }} on {{ format_date post.created_at }}</p>
   </article>
 
 <hr>
@@ -20,7 +20,7 @@
         {{ comment_text }}
       </div>
       <div class="meta">
-        by {{ user.username }} on {{ created_at }}
+        by {{ user.username }} on {{ format_date created_at }}
       </div>
     </section>
     {{/each}}

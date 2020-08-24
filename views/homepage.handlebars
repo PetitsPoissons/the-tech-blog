@@ -5,7 +5,7 @@
       <a href="/post/{{ post.id }}">{{ post.title }}</a>
     </h3>
     <p class="post-text">{{ post.content }}</p>
-    <p class="meta">Posted by {{ post.user.username }} on {{ post.created_at }}</p>
+    <p class="meta">Posted by {{ post.user.username }} on {{ format_date post.created_at }} ({{ post.comments.length }} {{ format_plural "comment" post.comments.length }})</p>
   </div>
   {{/each}}
 </div>
