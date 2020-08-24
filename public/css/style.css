@@ -33,7 +33,7 @@ body, html {
   /*background: no-repeat top center;*/
   background-image: url("../img/Blogging_003.jpg");
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: scroll;
   width: 100%;
 }
 
@@ -57,11 +57,13 @@ body, html {
 }
 
 #whatSnew {
-  background-image: url("../img/Blogging_003.jpg");
+  display: none;
+  background-image: url("../img/Blogging_004.jpg");
   background-size: cover;
-  background-attachment: fixed;
+  background-attachment: scroll;
+  background-position: top center;
   color: transparent;
-  height: 600px;
+  height: 500px;
   max-width: 100%;
   /*background: no-repeat center center;*/
 }

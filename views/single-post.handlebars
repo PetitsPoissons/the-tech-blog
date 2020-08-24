@@ -24,15 +24,19 @@
       </div>
     </section>
     {{/each}}
+    {{#if loggedIn}}
     <form class="row d-block comment-form">
       <div>
         <textarea class="w-100 mt-3" name="comment-body" placeholder="Your comment"></textarea>
       </div>
       <button type="submit" class="btn btn-primary w-100">Add Comment</button>
     </form>
+    {{/if}}
   </div>
 </div>
 
 
 </div>
-<script src="/js/comment.js"></script>
+{{#if loggedIn}}
+  <script src="/js/comment.js"></script>
+{{/if}}
