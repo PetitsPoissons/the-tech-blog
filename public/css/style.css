@@ -130,7 +130,7 @@ textarea:hover, input:hover {
   border-bottom: 1px solid;
 }
 
-.edit-link {
+.edit-link, .back {
   font-size: 22px;
   font-style: italic;
   margin-top: 0;

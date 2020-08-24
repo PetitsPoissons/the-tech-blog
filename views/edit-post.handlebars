@@ -1,12 +1,12 @@
 <section class="row d-block w-100 my-3">
   <a href="/dashboard" class="back">&larr; Back to dashboard</a>
-  <h3>Edit Post</h3>
+  <h3 class="mt-3">Edit Post</h3>
   <form class="edit-post-form w-100">
     <div>
       <input type="text" class="new-post-title my-3 w-100" name="edit-post-title" value="{{ post.title }}" />
     </div>
     <div>
-      <textarea class="w-100 mt-3" name="edit-post-content" value="{{ post.content }}"></textarea>
+      <textarea class="w-100 mt-3" name="edit-post-content" value="{{ post.content }}">{{ post.content }}</textarea>
     </div>
     <button type="submit" class="w-100 my-3 btn btn-primary">Save post</button>
     <button type="button" class="delete-post-btn">Delete post</button>
