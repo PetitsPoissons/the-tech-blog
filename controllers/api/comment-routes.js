@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Comment, Post, User } = require('../../models');
+const withAuth = require('../utils/auth');
 
 // get all comments
 router.get('/', (req, res) => {
@@ -29,45 +30,8 @@ router.get('/', (req, res) => {
     });
 });
 
-// get a single comment
-router.get('/:id', (req, res) => {
-  Comment
-    .findOne({
-      where: {
-        id: req.params.id
-      },
-      attributes: ['id', 'comment_text', 'created_at'],
-      order: [['created_at', 'DESC']],
-      include: [
-        {
-          model: User,
-          attributes: ['username']
-        },
-        {
-          model: Post,
-          attributes: ['title', 'created_at'],
-          include: {
-            model: User,
-            attributes: ['username']
-          }
-        }
-      ]
-    })
-    .then(dbCommentData => {
-      if (!dbCommentData) {
-        res.status(404).json({ message: 'No comment found with this id!' });
-        return;
-      }
-      res.json(dbCommentData);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
 // create a comment
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
   // check the session
   if (req.session) {
     Comment.create({
@@ -84,7 +48,7 @@ router.post('/', (req, res) => {
 });
 
 // update a comment
-router.put('/:id', (req, res) => {
+router.put('/:id', withAuth, (req, res) => {
   Comment
     .update(
       {
@@ -110,7 +74,7 @@ router.put('/:id', (req, res) => {
 });
 
 // delete a comment
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
   Comment
     .destroy({
       where: {

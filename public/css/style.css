@@ -40,14 +40,14 @@ body, html {
 #mainNav .navbar-brand {
   font-size: 45px;
   font-weight: 600;
-  color: #343a40;
+  /*color: #343a40;*/
 }
 
 #mainNav .navbar-toggler {
   font-weight: 800;
   padding: 13px;
   text-transform: uppercase;
-  color: #343a40;
+  /*color: #343a40;*/
 }
 
 #mainNav .navbar-nav li.nav-item a {
@@ -90,13 +90,10 @@ a:focus, a:hover {
 
 .post-title {
   font-size: 30px;
-  margin-top: 30px;
-  margin-bottom: 10px;
 }
 
 .post-text {
   font-weight: 300;
-  margin: 0 0 10px;
 }
 
 .meta {
@@ -104,6 +101,44 @@ a:focus, a:hover {
   font-style: italic;
   margin-top: 0;
   color: #868e96;
+}
+
+.comment {
+  border-left: 1px solid;
+}
+
+.comment-area {
+  border: 1px solid #197d0f;
+  box-shadow: 2px 2px 3px #197d0f;
+}
+
+.comment-area:hover, .comment-area:focus {
+  border: 2px solid #81bf3a;
+  box-shadow: 2px 2px 3px #81bf3a;
+}
+
+textarea {
+  border-radius: 5px;
+}
+
+textarea:hover, input:hover {
+  box-shadow: 2px 2px 3px #197d0f;
+}
+
+.new-post-title {
+  border: none;
+  border-bottom: 1px solid;
+}
+
+.edit-link {
+  font-size: 22px;
+  font-style: italic;
+  margin-top: 0;
+  color: #197d0f;
+}
+
+ul {
+  list-style-type: square;
 }
 
 footer {
