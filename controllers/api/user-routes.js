@@ -86,7 +86,7 @@ router.post('/login', (req, res) => {
   })
   .then(dbUserData => {
     if (!dbUserData) {
-      res.status(400).json({ message: 'No user found with that username!' });
+      res.status(400).json({ message: 'No user found with this username' });
       return;
     }
     // verify user identity
@@ -100,7 +100,9 @@ router.post('/login', (req, res) => {
         req.session.user_id = dbUserData.id;
         req.session.username = dbUserData.username;
         req.session.loggedIn = true;
-        res.json({ user: dbUserData, message: 'You are now logged in!' });})
+        res.json({ user: dbUserData, message: 'You are now logged in!' });
+        console.log(req.session);
+      });
     });
   });
 });
@@ -139,7 +141,7 @@ router.put('/:id', withAuth, (req, res) => {
 });
 
 // delete a user
-router.delete('/:id', withAuth, (req, res) => {
+router.delete('/:id', (req, res) => {
   User
     .destroy({
       where: {

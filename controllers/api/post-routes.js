@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
             model: User,
             attributes: ['username']
           },
-          order: [['created_at', 'DESC']]
+          //order: [['created_at', 'DESC']]
         }
       ]
     })

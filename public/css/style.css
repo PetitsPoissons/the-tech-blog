@@ -68,6 +68,10 @@ body, html {
   /*background: no-repeat center center;*/
 }
 
+#logout {
+  cursor: pointer;
+}
+
 p {
   line-height: 1.5;
   margin: 30px 0;
@@ -107,16 +111,6 @@ a:focus, a:hover {
   border-left: 1px solid;
 }
 
-.comment-area {
-  border: 1px solid #197d0f;
-  box-shadow: 2px 2px 3px #197d0f;
-}
-
-.comment-area:hover, .comment-area:focus {
-  border: 2px solid #81bf3a;
-  box-shadow: 2px 2px 3px #81bf3a;
-}
-
 textarea {
   border-radius: 5px;
 }
@@ -147,4 +141,12 @@ footer {
   justify-content: center;
   padding: 1%;
   font-size: 110%;
+}
+
+.plus-icon {
+  color: #81bf3a;
+}
+
+#del-btn {
+  color: maroon;
 }
