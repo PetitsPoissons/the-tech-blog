@@ -1,0 +1,26 @@
+<div class="col">
+  <section class="row d-block w-100 my-3">
+    <h3 class="mt-3">Create New Post</h3>
+    <form class="new-post-form w-100">
+      <input type="text" class="new-post-title my-3 p-2 w-100" name="new-post-title" placeholder="title" />
+      <textarea class="w-100 mt-3 p-2" name="new-post-content" placeholder="text"></textarea>
+      <button type="submit" class="w-100 my-3 btn btn-primary"><i class="fas fa-save plus-icon" id="plus-icon"></i><span>  Add Post</span></button>
+    </form>
+  </section>
+
+  {{#if posts.length}}
+  <section class="row d-block w-100 mt-3">
+    <h3>Your Posts</h3>
+    <ul>
+      {{#each posts as |post|}}
+      <li>
+        {{> post-info post}}
+        <a href="/dashboard/edit/{{ post.id }}" class="edit-link">Edit post</a>
+      </li>
+      {{/each}}
+    </ul>
+  </section>
+  {{/if}}
+</div>
+
+<script src="/js/add-post.js"></script>

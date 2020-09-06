@@ -1,0 +1,12 @@
+<div class="comments row d-block mb-3 mr-2">
+  {{#each this}}
+  <section class="comment pl-3">
+    <div class="comment-text">
+      {{ comment_text }}
+    </div>
+    <div class="meta pb-2">
+      by {{ user.username }} on {{ format_date created_at }}
+    </div>
+  </section>
+  {{/each}}
+</div>

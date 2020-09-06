@@ -1,6 +1,5 @@
 // import the Sequelize constructor from the library
 const Sequelize = require('sequelize');
-
 require('dotenv').config();
 
 // create connection to tech_blog_db

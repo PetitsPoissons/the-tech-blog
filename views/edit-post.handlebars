@@ -1,0 +1,43 @@
+<section class="row d-block w-100 my-3">
+  <a href="/dashboard" class="back">&larr; Back to dashboard</a>
+  <h3 class="mt-3">Edit Post</h3>
+  <form class="edit-post-form w-100">
+    <div>
+      <input type="text" class="new-post-title my-3 p-2 w-100" name="edit-post-title" value="{{ post.title }}" />
+    </div>
+    <div>
+      <textarea class="w-100 mt-3 p-2" name="edit-post-content" value="{{ post.content }}">{{ post.content }}</textarea>
+    </div>
+    <div class="row d-flex mt-3 pl-2">
+      <button type="submit" class="btn btn-primary mx-2" id="edit-btn">
+        <i class="fas fa-save plus-icon" id="plus-icon"></i><span>  Save Changes</span>
+      </button>
+      <button type="button" class="btn btn-light mx-2" id="del-btn">
+        <i class="fas fa-trash-alt"></i><span>  Delete Post</span>
+      </button>
+    </div>
+  </form>
+</section>
+
+<section class="row w-100 my-3 comments">
+  <div class="col-2">
+    <h5>Comments:</h5>
+  </div>
+  <div class="col-10">
+    <div class="row d-block mb-3 mr-2">
+      <form class="comment-form">
+        <div>
+          <textarea class="w-100 p-2 comment-area" name="comment-body" placeholder="your comment"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 mb-2"><i class="fas fa-plus plus-icon"></i><span>  Add Comment</span></button>
+      </form>
+    </div>
+    {{#if post.comments.length}}
+      {{> comments post.comments}}
+    {{/if}}
+  </div>
+
+</section>
+<script src="/js/edit-post.js"></script>
+<script src="/js/delete-post.js"></script>
+<script src="/js/comment.js"></script>
