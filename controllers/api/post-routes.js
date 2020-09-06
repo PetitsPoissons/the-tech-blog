@@ -2,36 +2,36 @@ const router = require('express').Router();
 const { Post, User, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// get all posts
+// get all posts (/api/posts/)
 router.get('/', (req, res) => {
-  Post
-    .findAll({
-      attributes: ['id', 'title', 'content', 'created_at'],
-      order: [['created_at', 'DESC']],
-      include: [
-        {
+  Post.findAll({
+    attributes: ['id', 'title', 'content', 'created_at'],
+    order: [['created_at', 'DESC']],
+    include: [
+      // include a post's author
+      {
+        model: User,
+        attributes: ['username']
+      },
+      // include comments for each post and the comments' authors
+      {
+        model: Comment,
+        attributes: ['comment_text', 'created_at'],
+        include: {
           model: User,
           attributes: ['username']
-        },
-        {
-          model: Comment,
-          attributes: ['comment_text', 'created_at'],
-          include: {
-            model: User,
-            attributes: ['username']
-          },
-          //order: [['created_at', 'DESC']]
         }
-      ]
-    })
-    .then(dbPostData => res.json(dbPostData))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+      }
+    ]
+  })
+  .then(dbPostData => res.json(dbPostData))
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
-// get a single post
+// get a single post (/api/posts/:id)
 router.get('/:id', (req, res) => {
   Post
     .findOne({
@@ -40,10 +40,12 @@ router.get('/:id', (req, res) => {
       },
       attributes: ['id', 'title', 'content', 'created_at'],
       include: [
+        // include the post's author
         {
           model: User,
           attributes: ['username']
         },
+        // include comments for the post and the comments' authors
         {
           model: Comment,
           attributes: ['comment_text', 'created_at'],
@@ -68,7 +70,7 @@ router.get('/:id', (req, res) => {
     });    
 });
 
-// create a post
+// create a post (/api/posts/)
 router.post('/', withAuth, (req, res) => {
   Post
     .create({
@@ -83,52 +85,52 @@ router.post('/', withAuth, (req, res) => {
     });
 });
 
-// update a post
+// update a post (/api/posts/:id)
 router.put('/:id', withAuth, (req, res) => {
-  Post
-    .update(
-      {
-        title: req.body.title,
-        content: req.body.content
-      },
-      {
-        where: {
-          id: req.params.id
-        }
-      }
-    )
-    .then(dbPostData => {
-      if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id' });
-        return;
-      }
-      res.json(dbPostData);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
-});
-
-// delete a post
-router.delete('/:id', withAuth, (req, res) => {
-  Post
-    .destroy({
+  console.log('*************** TRYING TO SAVE CHANGES TO A POST');
+  console.log('req.session', req.session);
+  Post.update(
+    {
+      title: req.body.title,
+      content: req.body.content
+    },
+    {
       where: {
         id: req.params.id
       }
-    })
-    .then(dbPostData => {
-      if (!dbPostData) {
-        res.status(404).json({ message: 'No post found with this id' });
-        return;
-      }
-      res.json(dbPostData);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+    }
+  )
+  .then(dbPostData => {
+    if (!dbPostData) {
+      res.status(404).json({ message: 'No post found with this id' });
+      return;
+    }
+    res.json(dbPostData);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
+});
+
+// delete a post (/api/posts/:id)
+router.delete('/:id', withAuth, (req, res) => {
+  Post.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(dbPostData => {
+    if (!dbPostData) {
+      res.status(404).json({ message: 'No post found with this id' });
+      return;
+    }
+    res.json(dbPostData);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 module.exports = router;

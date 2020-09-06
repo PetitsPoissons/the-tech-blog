@@ -2,65 +2,52 @@ const router = require('express').Router();
 const { User, Post, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// get all users
+// get all users (/api/users/)
 router.get('/', (req, res) => {
-  User
-    .findAll({
-      attributes: { exclude: ['password']},
-      include: [
-        {
-          model: Post,
-          attributes: ['title', 'created_at'],
-          order: [['created_at', 'DESC']]
-        }
-      ]
-    })
-    .then(dbUserData => res.json(dbUserData))
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+  User.findAll()
+  .then(dbUserData => res.json(dbUserData))
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
-// get a single user
+// get a single user (/api/users/:id)
 router.get('/:id', (req, res) => {
-  User
-    .findOne({
-      where: {
-        id: req.params.id
+  User.findOne({
+    where: {
+      id: req.params.id
+    },
+    attributes: { exclude: ['password']},
+    include: [
+      {
+        model: Post,
+        attributes: ['id', 'title', 'created_at']
       },
-      attributes: { exclude: ['password']},
-      include: [
-        {
+      {
+        model: Comment,
+        attributes: ['id', 'comment_text', 'created_at'],
+        include: {
           model: Post,
-          attributes: ['title', 'created_at'],
-          order: [['created_at', 'DESC']]
-        },
-        {
-          model: Comment,
-          attributes: ['comment_text', 'created_at'],
-          include: {
-            model: Post,
-            attributes: ['title']
-          },
-          order: [['created_at', 'DESC']]
+          attributes: ['title']
         }
-      ]
-    })
-    .then(dbUserData => {
-      if (!dbUserData) {
-        res.status(404).json({ message: 'No user found' });
-        return;
       }
-      res.json(dbUserData);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
-    });
+    ]
+  })
+  .then(dbUserData => {
+    if (!dbUserData) {
+      res.status(404).json({ message: 'No user found' });
+      return;
+    }
+    res.json(dbUserData);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
-// create a user
+// create a user (/api/users/)
 router.post('/', (req, res) => {
   User.create(req.body)
   .then(dbUserData => {
@@ -77,7 +64,7 @@ router.post('/', (req, res) => {
   });
 });
 
-// login user
+// login user (/api/users/login)
 router.post('/login', (req, res) => {
   User.findOne({
     where: {
@@ -101,13 +88,12 @@ router.post('/login', (req, res) => {
         req.session.username = dbUserData.username;
         req.session.loggedIn = true;
         res.json({ user: dbUserData, message: 'You are now logged in!' });
-        console.log(req.session);
       });
     });
   });
 });
 
-// logout user
+// logout user (/api/users/logout)
 router.post('/logout', (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy(() => {
@@ -118,7 +104,7 @@ router.post('/logout', (req, res) => {
   }
 });
 
-// update a user
+// update a user (/api/users/:id)
 router.put('/:id', withAuth, (req, res) => {
   User
     .update(req.body, {
@@ -141,7 +127,7 @@ router.put('/:id', withAuth, (req, res) => {
 });
 
 // delete a user
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
   User
     .destroy({
       where: {

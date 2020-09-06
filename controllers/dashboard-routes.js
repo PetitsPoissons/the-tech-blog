@@ -1,20 +1,19 @@
 const router = require('express').Router();
-const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
-// get all posts made by a user
+// get all posts made by logged in user ('/dashboard/')
 router.get('/', withAuth, (req, res) => {
   Post.findAll({
     where: {
-      user_id: req.session.user_id
+      user_id: req.session.user_id // use the id from the session
     },
     attributes: ['id', 'title', 'content', 'created_at'],
     order: [['created_at', 'DESC']],
     include: [
       {
         model: Comment,
-        attributes: ['id', 'comment_text', 'user_id', 'created_at'],
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
         order: [['created_at', 'DESC']],
         include: {
           model: User,
@@ -28,7 +27,7 @@ router.get('/', withAuth, (req, res) => {
     ]
   })
   .then(dbPostData => {
-    // serialize
+    // serialize and pass to template
     const posts = dbPostData.map(post => post.get({ plain: true }));
     res.render('dashboard', { posts, loggedIn: true });
   })
@@ -38,6 +37,7 @@ router.get('/', withAuth, (req, res) => {
   });
 });
 
+// edit single post made by logged in user
 router.get('/edit/:id', withAuth, (req, res) => {
   Post.findOne({
     where: {
@@ -47,7 +47,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
     include: [
       {
         model: Comment,
-        attributes: ['id', 'comment_text', 'user_id', 'created_at'],
+        attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
         order: [['created_at', 'DESC']],
         include: {
           model: User,
@@ -65,9 +65,8 @@ router.get('/edit/:id', withAuth, (req, res) => {
       res.status(404).json({ message: 'No post found with this id' });
       return;
     }
-    // serialize the data
+    // serialize the data and pass to template
     const post = dbPostData.get({ plain: true });
-    // pass to template
     res.render('edit-post', {
       post,
       loggedIn: true
@@ -79,8 +78,8 @@ router.get('/edit/:id', withAuth, (req, res) => {
   });
 });
 
-router.get('/new', withAuth, (req, res) => {
-  res.render('new-post');
-});
+// router.get('/new', withAuth, (req, res) => {
+//   res.render('new-post');
+// });
 
 module.exports = router;
